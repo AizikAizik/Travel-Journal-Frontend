@@ -10,7 +10,7 @@ const Footer = () => {
           <Col>
             <small>
               <b className="ttu">Aizik projects Inc</b>., All Rights Reserved
-              &copy; {" "}{new Date().getFullYear()}
+              &copy; {new Date().getFullYear()}
             </small>
           </Col>
         </Row>
