@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import LoginForm from "../components/LoginForm";
 
 const HomeScreen = () => {
   return (
@@ -9,7 +10,7 @@ const HomeScreen = () => {
       <Header />
       <main className="py-3">
         <Container>
-          <h3>Welcome To Travel Journal</h3>
+          <LoginForm />
         </Container>
       </main>
       <Footer />
