@@ -35,7 +35,7 @@ const LoginForm = () => {
       <h1>Sign In</h1>
       { error && <Message variant='danger'>{error}</Message> }
       { loading && <Loader /> }
-      <Form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler} className="py-3">
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
