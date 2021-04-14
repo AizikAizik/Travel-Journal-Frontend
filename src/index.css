@@ -10,3 +10,9 @@ body{
   width: 24px;
   height: 24px;
 }
+
+.addForm{
+  height: 350px;
+  overflow-y: scroll;
+  margin-top: 14px;
+}

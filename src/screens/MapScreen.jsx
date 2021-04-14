@@ -5,9 +5,12 @@ import { fetchJornalEntries } from "../actions/journalActions";
 import Header from "../components/Header";
 import Loader from "../components/Loader";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
-import { Card, Button } from "react-bootstrap";
+import EntryWithImage from "../components/EntryWithImage";
+import EntryWithoutImage from "../components/EntryWithoutImage";
+import AddEntryForm from "../components/AddEntryForm";
 
 const MapScreen = () => {
+  // state values
   const [viewport, setViewport] = useState({
     width: "100vw",
     height: "100vh",
@@ -15,6 +18,18 @@ const MapScreen = () => {
     longitude: -95.665,
     zoom: 3,
   });
+
+  const [addEntryLocation, setaddEntryLocation] = useState(null);
+
+  const showMarkerPopup = (e) => {
+    console.log(e);
+    const [longitude, latitude] = e.lngLat;
+
+    setaddEntryLocation({
+      latitude,
+      longitude,
+    });
+  };
 
   const [showPopup, setshowPopup] = useState({});
 
@@ -44,6 +59,7 @@ const MapScreen = () => {
       {loading && <Loader />}
       <ReactMapGL
         {...viewport}
+        onDblClick={showMarkerPopup}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={(nextViewport) => setViewport(nextViewport)}
       >
@@ -63,7 +79,6 @@ const MapScreen = () => {
                   className="marker"
                   onClick={() =>
                     setshowPopup({
-                      ...showPopup,
                       [entry._id]: true,
                     })
                   }
@@ -75,73 +90,49 @@ const MapScreen = () => {
                   longitude={entry.longitude}
                   closeButton={true}
                   closeOnClick={false}
-                  onClose={() =>
-                    setshowPopup({
-                      ...showPopup,
-                      [entry._id]: false,
-                    })
-                  }
+                  onClose={() => setshowPopup({})}
                   anchor="top"
+                  dynamicPosition={true}
+                  sortByDepth={true}
                 >
                   {entry.image ? (
-                    <Card style={{ width: "18rem", margin: "8px" }}>
-                      <Card.Img variant="top" src={entry.image} />
-                      <Card.Body>
-                        <Card.Title style={{ height: "40px" }}>
-                          {entry.title}
-                        </Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">
-                          Rating: {entry.rating}/10
-                        </Card.Subtitle>
-                        <Card.Text>{entry.comments}</Card.Text>
-                        <Button
-                          variant="danger"
-                          title="delete entry"
-                          style={{
-                            borderRadius: "50%",
-                            width: "20px",
-                            marginLeft: "80%",
-                          }}
-                        >
-                          <i
-                            className="fas fa-trash"
-                            style={{ marginLeft: "-5px" }}
-                          ></i>
-                        </Button>
-                      </Card.Body>
-                    </Card>
+                    <EntryWithImage entry={entry} />
                   ) : (
-                    <Card style={{ width: "18rem", margin: "8px" }}>
-                      <Card.Body>
-                        <Card.Title style={{ height: "40px" }}>
-                          {entry.title}
-                        </Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">
-                          Rating: {entry.rating}/10
-                        </Card.Subtitle>
-                        <Card.Text>{entry.comments}</Card.Text>
-                        <Button
-                          variant="danger"
-                          title="delete entry"
-                          style={{
-                            borderRadius: "50%",
-                            width: "20px",
-                            marginLeft: "80%",
-                          }}
-                        >
-                          <i
-                            className="fas fa-trash"
-                            style={{ marginLeft: "-5px" }}
-                          ></i>
-                        </Button>
-                      </Card.Body>
-                    </Card>
+                    <EntryWithoutImage entry={entry} />
                   )}
                 </Popup>
               )}
             </div>
           );
         })}
+        {addEntryLocation && (
+          <>
+            <Marker
+              latitude={addEntryLocation.latitude}
+              longitude={addEntryLocation.longitude}
+              offsetLeft={-12}
+              offsetTop={-24}
+            >
+              <img
+                src="https://th.bing.com/th/id/R4a2afab3dfbf5287f9bb4aabfdefdbe3?rik=gaKyLBhTlO3BtA&riu=http%3a%2f%2fwww.clker.com%2fcliparts%2fH%2f9%2f3%2fz%2fe%2fO%2fred-pin-maps.svg.hi.png&ehk=rs7Wnn0Le04CoZ25h1Rf2jTlrIUNT4Et8PdHOi4qdEk%3d&risl=&pid=ImgRaw"
+                alt="red marker"
+                className="marker"
+              />
+            </Marker>
+            <Popup
+              latitude={addEntryLocation.latitude}
+              longitude={addEntryLocation.longitude}
+              closeButton={true}
+              closeOnClick={false}
+              onClose={() => setaddEntryLocation(null)}
+              anchor="top"
+              dynamicPosition={true}
+              sortByDepth={true}
+            >
+              <AddEntryForm />
+            </Popup>
+          </>
+        )}
       </ReactMapGL>
     </div>
   );

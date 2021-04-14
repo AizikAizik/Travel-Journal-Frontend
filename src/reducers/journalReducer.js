@@ -1,4 +1,10 @@
 import {
+    ADD_JOURNAL_FAIL,
+    ADD_JOURNAL_LOADING,
+    ADD_JOURNAL_SUCCESS,
+    DELETE_JOURNAL_FAIL,
+    DELETE_JOURNAL_LOADING,
+    DELETE_JOURNAL_SUCCESS,
     JOURNAL_ENTRY_FAIL,
     JOURNAL_ENTRY_LOADING,
     JOURNAL_ENTRY_SUCEESS
@@ -27,6 +33,60 @@ export const journalReducer = (state = {journalEntry:[]}, action) =>{
 
         case USER_LOGOUT:
             return {journalEntry: []};
+
+        default:
+            return state;
+    }
+}
+
+export const addJournalReducer = (state = {},action) =>{
+    switch (action.type) {
+        case ADD_JOURNAL_LOADING:
+            return{
+                loading : true,
+            }
+
+        case ADD_JOURNAL_SUCCESS:
+            return{
+                loading: false,
+                entry: action.payload
+            }
+
+        case ADD_JOURNAL_FAIL:
+            return{
+                loading: false,
+                error: action.payload
+            }
+
+        case USER_LOGOUT:
+            return {};
+
+        default:
+            return state;
+    }
+}
+
+export const deleteJournalReducer = (state = {},action) =>{
+    switch (action.type) {
+        case DELETE_JOURNAL_LOADING:
+            return{
+                loading : true,
+            }
+
+        case DELETE_JOURNAL_SUCCESS:
+            return{
+                loading: false,
+                entry: action.payload
+            }
+
+        case DELETE_JOURNAL_FAIL:
+            return{
+                loading: false,
+                error: action.payload
+            }
+
+        case USER_LOGOUT:
+            return {};
 
         default:
             return state;
