@@ -1,19 +1,19 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Travel Journal",
+  "name": "Travel Journal Entry",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "https://banner2.cleanpng.com/20180322/drq/kisspng-earth-light-planet-photography-space-earth-5ab45f0b8d5ca9.958838211521770251579.jpg",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "https://banner2.cleanpng.com/20180322/drq/kisspng-earth-light-planet-photography-space-earth-5ab45f0b8d5ca9.958838211521770251579.jpg",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "https://banner2.cleanpng.com/20180322/drq/kisspng-earth-light-planet-photography-space-earth-5ab45f0b8d5ca9.958838211521770251579.jpg",
       "type": "image/png",
       "sizes": "512x512"
     }

@@ -4,7 +4,6 @@ import MapScreen from "./screens/MapScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 
 function App() {
-  console.log(process.env.REACT_APP_API_URL);
   
   return (
     <Router>

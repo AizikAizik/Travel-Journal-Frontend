@@ -22,7 +22,6 @@ const MapScreen = () => {
   const [addEntryLocation, setaddEntryLocation] = useState(null);
 
   const showMarkerPopup = (e) => {
-    console.log(e);
     const [longitude, latitude] = e.lngLat;
 
     setaddEntryLocation({
@@ -129,7 +128,13 @@ const MapScreen = () => {
               dynamicPosition={true}
               sortByDepth={true}
             >
-              <AddEntryForm />
+              <AddEntryForm
+                points={addEntryLocation}
+                onClose={() =>{
+                   setaddEntryLocation(null);
+                   dispatch(fetchJornalEntries())
+                }}
+              />
             </Popup>
           </>
         )}
