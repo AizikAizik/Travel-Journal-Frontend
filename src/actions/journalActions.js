@@ -3,6 +3,9 @@ import {
     ADD_JOURNAL_FAIL,
     ADD_JOURNAL_LOADING,
     ADD_JOURNAL_SUCCESS,
+    DELETE_JOURNAL_FAIL,
+    DELETE_JOURNAL_LOADING,
+    DELETE_JOURNAL_SUCCESS,
     JOURNAL_ENTRY_FAIL,
     JOURNAL_ENTRY_LOADING,
     JOURNAL_ENTRY_SUCEESS
@@ -74,6 +77,42 @@ export const addJournalEntry = (journal) => async (dispatch, getState) =>{
     } catch (error) {
         dispatch({
             type: ADD_JOURNAL_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+}
+
+export const deleteJournalEntries = (id) => async (dispatch,getState) =>{
+    try {
+        dispatch({
+            type: DELETE_JOURNAL_LOADING
+        })
+
+        const { userLogin: {userInfo} } = getState();
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization : `Bearer ${userInfo.token}`
+            },
+        };
+
+        const { data } = await axios.delete(
+            `${api_url}/api/journal/${id}`,
+            config
+        )
+
+        dispatch({
+            type: DELETE_JOURNAL_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: DELETE_JOURNAL_FAIL,
             payload:
                 error.response && error.response.data.message
                     ? error.response.data.message

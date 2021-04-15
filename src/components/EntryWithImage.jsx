@@ -1,9 +1,29 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteJournalEntries, fetchJornalEntries } from "../actions/journalActions";
+import Loader from "./Loader";
+import Message from "./Message";
 
-const EntryWithImage = ({entry}) => {
+const EntryWithImage = ({ entry, onClose }) => {
+  const dispatch = useDispatch();
+
+  const deleteJournal = useSelector((state) => state.deleteJournal);
+
+  const { error, loading } = deleteJournal;
+
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this Entry?")) {
+      await dispatch(deleteJournalEntries(entry._id));
+      await dispatch(fetchJornalEntries());
+      onClose();
+    }
+  };
+
   return (
     <Card style={{ width: "18rem", margin: "8px" }}>
+      {error && <Message variant="danger">{error}</Message>}
+      {loading && <Loader />}
       <Card.Img variant="top" src={entry.image} />
       <Card.Body>
         <Card.Title style={{ height: "40px", fontFamily: "sans-serif" }}>
@@ -24,6 +44,7 @@ const EntryWithImage = ({entry}) => {
             width: "20px",
             marginLeft: "80%",
           }}
+          onClick={handleDelete}
         >
           <i className="fas fa-trash" style={{ marginLeft: "-5px" }}></i>
         </Button>

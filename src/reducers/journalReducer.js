@@ -76,7 +76,7 @@ export const deleteJournalReducer = (state = {},action) =>{
         case DELETE_JOURNAL_SUCCESS:
             return{
                 loading: false,
-                entry: action.payload
+                message: action.payload
             }
 
         case DELETE_JOURNAL_FAIL:

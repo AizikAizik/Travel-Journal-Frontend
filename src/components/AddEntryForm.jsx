@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,18 +12,13 @@ const AddEntryForm = ({points, onClose}) => {
 
   const addedJournal = useSelector(state => state.addedJournal)
 
-  const {error, loading, entry}  = addedJournal;
+  const {error, loading}  = addedJournal;
 
-  // useEffect(() => {
-  //   if(entry){
-  //     dispatch(fetchJornalEntries())
-  //   }
-  // }, [entry, dispatch])
-
-  const onSubmitEntry = (data) => {
+  const onSubmitEntry = async(data) => {
     data.latitude = points.latitude;
     data.longitude = points.longitude;
-    dispatch(addJournalEntry(data));
+    await dispatch(addJournalEntry(data));
+    await dispatch(fetchJornalEntries())
     onClose();
   };
 

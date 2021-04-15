@@ -95,9 +95,19 @@ const MapScreen = () => {
                   sortByDepth={true}
                 >
                   {entry.image ? (
-                    <EntryWithImage entry={entry} />
+                    <EntryWithImage
+                      entry={entry}
+                      onClose={() => {
+                        setshowPopup({})
+                      }}
+                    />
                   ) : (
-                    <EntryWithoutImage entry={entry} />
+                    <EntryWithoutImage
+                      entry={entry}
+                      onClose={() => {
+                        setshowPopup({})
+                      }}
+                    />
                   )}
                 </Popup>
               )}
@@ -130,9 +140,8 @@ const MapScreen = () => {
             >
               <AddEntryForm
                 points={addEntryLocation}
-                onClose={() =>{
-                   setaddEntryLocation(null);
-                   dispatch(fetchJornalEntries())
+                onClose={() => {
+                  setaddEntryLocation(null);
                 }}
               />
             </Popup>
