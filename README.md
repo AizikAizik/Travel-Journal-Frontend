@@ -1,3 +1,3 @@
 # App Screenshot
 
-![ScreenShot](https://i.postimg.cc/sBMxM9sT/travelscreenshot.png)
+![Alt text](/src/images/travelscreenshot.PNG?raw=true)
