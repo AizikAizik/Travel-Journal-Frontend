@@ -8,6 +8,10 @@ import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import EntryWithImage from "../components/EntryWithImage";
 import EntryWithoutImage from "../components/EntryWithoutImage";
 import AddEntryForm from "../components/AddEntryForm";
+import mapboxgl from "mapbox-gl";
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const MapScreen = () => {
   // state values
