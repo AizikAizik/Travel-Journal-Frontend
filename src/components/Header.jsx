@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { LinkContainer } from "react-router-bootstrap";
 import { logout } from "../actions/userActions";
+import InstructionsModal from "./InstructionsModal";
 
 const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
+  const [modalShow, setModalShow] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -14,7 +16,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    history.push('/');
+    history.push("/");
   };
 
   return (
@@ -28,7 +30,12 @@ const Header = () => {
           <Nav className="ml-auto">
             {userInfo ? (
               <NavDropdown title={userInfo.fullName} id="username">
-                <NavDropdown.Item onClick={logoutHandler}>logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => setModalShow(true)}>
+                  Instructions
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutHandler}>
+                  logout
+                </NavDropdown.Item>
               </NavDropdown>
             ) : (
               <>
@@ -43,6 +50,8 @@ const Header = () => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+
+      <InstructionsModal show={modalShow} onHide={() => setModalShow(false)} />
     </header>
   );
 };
